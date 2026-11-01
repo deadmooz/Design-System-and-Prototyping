@@ -1,0 +1,54 @@
+{
+  "name": "Orbit UI Kit",
+  "styles": {
+    "S:primary": { "name": "Brand/Primary", "styleType": "FILL" },
+    "S:text": { "name": "Text/Primary", "styleType": "FILL" },
+    "S:bg": { "name": "Background/Default", "styleType": "FILL" },
+    "S:h1": { "name": "Heading/H1", "styleType": "TEXT" },
+    "S:body": { "name": "Body/Regular", "styleType": "TEXT" }
+  },
+  "document": {
+    "id": "0:0", "type": "DOCUMENT", "name": "Document",
+    "children": [{
+      "id": "0:1", "type": "CANVAS", "name": "Page 1",
+      "children": [{
+        "id": "1:1", "type": "FRAME", "name": "Desktop", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 1440, "height": 900 },
+        "fills": [{ "type": "SOLID", "color": { "r": 1, "g": 1, "b": 1, "a": 1 } }], "styles": { "fill": "S:bg" },
+        "layoutMode": "VERTICAL", "itemSpacing": 24, "paddingTop": 32, "paddingRight": 32, "paddingBottom": 32, "paddingLeft": 32,
+        "children": [
+          { "id": "1:2", "type": "TEXT", "name": "Title", "characters": "Hello",
+            "style": { "fontFamily": "Manrope", "fontSize": 44, "fontWeight": 800, "lineHeightPx": 52.8 },
+            "fills": [{ "type": "SOLID", "color": { "r": 0.07, "g": 0.09, "b": 0.15, "a": 1 } }], "styles": { "text": "S:h1", "fill": "S:text" } },
+          { "id": "1:3", "type": "TEXT", "name": "Body", "characters": "Body",
+            "style": { "fontFamily": "Manrope", "fontSize": 16, "fontWeight": 400, "lineHeightPx": 24 },
+            "fills": [{ "type": "SOLID", "color": { "r": 0.07, "g": 0.09, "b": 0.15, "a": 1 } }], "styles": { "text": "S:body" } },
+          { "id": "1:4", "type": "FRAME", "name": "Card", "cornerRadius": 12, "layoutMode": "VERTICAL", "itemSpacing": 8,
+            "paddingTop": 16, "paddingRight": 16, "paddingBottom": 16, "paddingLeft": 16,
+            "fills": [{ "type": "SOLID", "color": { "r": 0.97, "g": 0.97, "b": 0.98, "a": 1 } }],
+            "effects": [{ "type": "DROP_SHADOW", "visible": true, "radius": 16, "offset": { "x": 0, "y": 4 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.1 } }],
+            "children": [] }
+        ]
+      }, {
+        "id": "2:1", "type": "COMPONENT_SET", "name": "Button",
+        "children": [
+          { "id": "2:2", "type": "COMPONENT", "name": "Variant=Primary, State=Default", "cornerRadius": 8,
+            "layoutMode": "HORIZONTAL", "paddingTop": 10, "paddingRight": 18, "paddingBottom": 10, "paddingLeft": 18,
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 120, "height": 40 },
+            "fills": [{ "type": "SOLID", "color": { "r": 0.0627, "g": 0.7255, "b": 0.5059, "a": 1 } }], "styles": { "fill": "S:primary" },
+            "children": [{ "id": "2:3", "type": "TEXT", "name": "Label", "style": { "fontFamily": "Manrope", "fontSize": 14, "fontWeight": 600 },
+              "fills": [{ "type": "SOLID", "color": { "r": 1, "g": 1, "b": 1, "a": 1 } }] }] },
+          { "id": "2:4", "type": "COMPONENT", "name": "Variant=Primary, State=Hover", "cornerRadius": 8,
+            "fills": [{ "type": "SOLID", "color": { "r": 0.0196, "g": 0.5882, "b": 0.4118, "a": 1 } }], "children": [] },
+          { "id": "2:5", "type": "COMPONENT", "name": "Variant=Secondary, State=Default", "cornerRadius": 8,
+            "strokes": [{ "type": "SOLID", "color": { "r": 0.0627, "g": 0.7255, "b": 0.5059, "a": 1 } }], "strokeWeight": 1, "children": [] }
+        ]
+      }, {
+        "id": "3:1", "type": "COMPONENT", "name": "Input / Text field", "cornerRadius": 6,
+        "strokes": [{ "type": "SOLID", "color": { "r": 0.82, "g": 0.84, "b": 0.86, "a": 1 } }], "strokeWeight": 1, "children": []
+      }, {
+        "id": "4:1", "type": "FRAME", "name": "Hidden", "visible": false,
+        "fills": [{ "type": "SOLID", "color": { "r": 1, "g": 0, "b": 0, "a": 1 } }], "children": []
+      }]
+    }]
+  }
+}

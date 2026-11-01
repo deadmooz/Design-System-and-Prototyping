@@ -1,0 +1,50 @@
+{
+  "name": "design-system-prototyping",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Extract a reusable design system from a website or Figma file, then prototype with it using any LLM (Claude, OpenAI, Gemini, Grok).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "bin": {
+    "dsp": "src/cli.ts"
+  },
+  "main": "dist/react/index.cjs",
+  "module": "dist/react/index.js",
+  "types": "dist/react/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./components.css": "./src/styles/components.css"
+  },
+  "scripts": {
+    "start": "node src/server/index.ts",
+    "dev": "node --watch src/server/index.ts",
+    "cli": "node src/cli.ts",
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "skill:sync": "node scripts/sync-skill.ts",
+    "build:react": "tsup"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "react-dom": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.8.0"
+  }
+}

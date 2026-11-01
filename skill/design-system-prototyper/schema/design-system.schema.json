@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/design-system-prototyping/schema/design-system.schema.json",
+  "title": "Design System (version 1)",
+  "description": "Output of the design-system extractor; input to the prototype generator. Mirrors src/core/schema.ts.",
+  "type": "object",
+  "required": ["version", "meta", "color", "typography", "spacing", "radius", "shadow", "breakpoints", "layout", "components", "patterns"],
+  "$defs": {
+    "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$" },
+    "scale": {
+      "type": "object",
+      "required": ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"],
+      "additionalProperties": false,
+      "patternProperties": { "^(50|[1-9]00)$": { "$ref": "#/$defs/hex" } }
+    },
+    "typeStyle": {
+      "type": "object",
+      "required": ["size", "lineHeight", "weight"],
+      "properties": {
+        "size": { "type": "number", "minimum": 6, "maximum": 200 },
+        "lineHeight": { "type": "number", "minimum": 0.8, "maximum": 3 },
+        "weight": { "type": "number", "minimum": 100, "maximum": 900 },
+        "letterSpacing": { "type": "number" }
+      }
+    },
+    "cssMap": { "type": "object", "additionalProperties": { "type": "string", "maxLength": 200 } },
+    "component": {
+      "type": "object",
+      "required": ["found", "count", "selectors", "base", "states", "variants"],
+      "properties": {
+        "found": { "type": "boolean" },
+        "count": { "type": "integer", "minimum": 0 },
+        "selectors": { "type": "array", "items": { "type": "string" } },
+        "base": { "$ref": "#/$defs/cssMap" },
+        "states": {
+          "type": "object",
+          "properties": { "hover": { "$ref": "#/$defs/cssMap" }, "focus": { "$ref": "#/$defs/cssMap" }, "active": { "$ref": "#/$defs/cssMap" }, "disabled": { "$ref": "#/$defs/cssMap" } },
+          "additionalProperties": false
+        },
+        "variants": { "type": "object", "additionalProperties": { "$ref": "#/$defs/cssMap" } }
+      }
+    }
+  },
+  "properties": {
+    "version": { "const": "1" },
+    "meta": {
+      "type": "object",
+      "required": ["name", "source", "confidence", "notes"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "description": { "type": "string" },
+        "source": {
+          "type": "object",
+          "required": ["type", "ref", "extractedAt"],
+          "properties": { "type": { "enum": ["url", "figma", "manual", "ai"] }, "ref": { "type": "string" }, "extractedAt": { "type": "string" } }
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "color": {
+      "type": "object",
+      "required": ["roles", "scales", "palette"],
+      "properties": {
+        "roles": {
+          "type": "object",
+          "required": ["primary", "onPrimary", "secondary", "accent", "background", "surface", "text", "textMuted", "border", "success", "warning", "error", "info"],
+          "additionalProperties": { "$ref": "#/$defs/hex" }
+        },
+        "scales": { "type": "object", "additionalProperties": { "$ref": "#/$defs/scale" } },
+        "palette": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["value", "count", "usage"],
+            "properties": {
+              "value": { "$ref": "#/$defs/hex" },
+              "count": { "type": "number" },
+              "usage": { "type": "array", "items": { "enum": ["background", "text", "border", "fill", "other"] } }
+            }
+          }
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["families", "fontSources", "scale", "weights"],
+      "properties": {
+        "families": {
+          "type": "object",
+          "required": ["sans", "heading", "mono"],
+          "properties": { "sans": { "type": "string" }, "heading": { "type": "string" }, "mono": { "type": "string" } }
+        },
+        "fontSources": { "type": "array", "items": { "type": "string", "pattern": "^https://(fonts\\.googleapis\\.com|fonts\\.bunny\\.net|use\\.typekit\\.net|rsms\\.me)/" } },
+        "scale": {
+          "type": "object",
+          "required": ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl"],
+          "additionalProperties": { "$ref": "#/$defs/typeStyle" }
+        },
+        "weights": { "type": "array", "items": { "type": "number" } }
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "required": ["base", "scale"],
+      "properties": { "base": { "type": "number", "minimum": 1 }, "scale": { "type": "array", "items": { "type": "number", "minimum": 0 }, "minItems": 3 } }
+    },
+    "radius": {
+      "type": "object",
+      "required": ["none", "sm", "md", "lg", "xl", "full"],
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "shadow": {
+      "type": "object",
+      "required": ["sm", "md", "lg"],
+      "additionalProperties": { "type": "string", "maxLength": 200 }
+    },
+    "breakpoints": {
+      "type": "object",
+      "required": ["sm", "md", "lg", "xl"],
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "layout": {
+      "type": "object",
+      "required": ["maxWidth", "gutter"],
+      "properties": { "maxWidth": { "type": "number" }, "gutter": { "type": "number" } }
+    },
+    "components": {
+      "type": "object",
+      "propertyNames": { "enum": ["button", "input", "card", "badge", "link", "nav", "modal", "avatar"] },
+      "additionalProperties": { "$ref": "#/$defs/component" }
+    },
+    "patterns": {
+      "type": "object",
+      "required": ["navigation", "interactions"],
+      "properties": {
+        "navigation": {
+          "type": "object",
+          "required": ["type", "sticky", "hasMobileMenu", "hasSearch", "items"],
+          "properties": {
+            "type": { "enum": ["topbar", "sidebar", "none", "unknown"] },
+            "sticky": { "type": "boolean" },
+            "hasMobileMenu": { "type": "boolean" },
+            "hasSearch": { "type": "boolean" },
+            "items": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "interactions": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

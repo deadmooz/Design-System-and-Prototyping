@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+*.log
+
+# Secrets — never commit real keys. Copy .env.example to .env.
+.env
+.env.*
+!.env.example
+
+# Local output from the CLI / workspace exports
+out/
+*.design-system.json
+!test/fixtures/**
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
